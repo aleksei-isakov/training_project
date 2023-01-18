@@ -100,7 +100,7 @@ function fnButtonClick(fn): void  {
 
 function calculate(action):void {
   if (currentField && previousField.value) {
-    result.value = eval(`${currentField.join('')} ${action} ${previousField.value}`);
+    result.value = eval(`${previousField.value} ${action} ${currentField.join('')}`);
     previousField.value = '';
     currentField.length = 0;
     currentAction.value= '';

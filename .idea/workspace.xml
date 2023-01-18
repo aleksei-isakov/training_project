@@ -19,7 +19,10 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="81d6ea27-f9eb-4979-9a9d-4a9954df2d5f" name="Default Changelist" comment="" />
+    <list default="true" id="81d6ea27-f9eb-4979-9a9d-4a9954df2d5f" name="Default Changelist" comment="initial commit">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/training_project/src/components/HelloWorld.vue" beforeDir="false" afterPath="$PROJECT_DIR$/training_project/src/components/HelloWorld.vue" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -48,8 +51,16 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1673879272583</updated>
-      <workItem from="1673879273830" duration="21828000" />
+      <workItem from="1673879273830" duration="22553000" />
     </task>
+    <task id="LOCAL-00001" summary="initial commit">
+      <created>1674039824699</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1674039824699</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -66,7 +77,15 @@
       </map>
     </option>
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="initial commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="initial commit" />
+  </component>
   <component name="WindowStateProjectService">
+    <state x="345" y="540" key="Vcs.Push.Dialog.v2" timestamp="1674039833920">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="345" y="540" key="Vcs.Push.Dialog.v2/0.0.2560.1400@0.0.2560.1400" timestamp="1674039833920" />
     <state x="450" y="409" key="run.anything.popup" timestamp="1673959387579">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
