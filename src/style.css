@@ -1,0 +1,23 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  height: 100vh;
+}
+button:hover {
+  cursor: pointer;
+}
+li, a{
+  list-style-type: none;
+  text-decoration: none;
+}
+li:hover {
+  cursor: pointer;
+}
+.site-container {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100%;
+}

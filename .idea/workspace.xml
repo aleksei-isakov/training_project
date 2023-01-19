@@ -19,9 +19,29 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="81d6ea27-f9eb-4979-9a9d-4a9954df2d5f" name="Default Changelist" comment="initial commit">
+    <list default="true" id="81d6ea27-f9eb-4979-9a9d-4a9954df2d5f" name="Default Changelist" comment="primary calculation bug fix">
+      <change afterPath="$PROJECT_DIR$/src/components/footer/Footer.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/home/Home.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/weather/Weather.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/router/Router.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/training_project/src/components/HelloWorld.vue" beforeDir="false" afterPath="$PROJECT_DIR$/training_project/src/components/HelloWorld.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/training_project/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/training_project/.vscode/extensions.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/training_project/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/training_project/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/training_project/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/training_project/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/training_project/public/vite.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/training_project/src/App.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/training_project/src/assets/vue.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/training_project/src/components/HelloWorld.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/training_project/src/main.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/training_project/src/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/training_project/src/vite-env.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/training_project/tsconfig.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/training_project/tsconfig.node.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/training_project/vite.config.ts" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,9 +59,15 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="ts.external.directory.path" value="C:\Users\Alex\WebstormProjects\training_projetc\training_project\node_modules\typescript\lib" />
+    <property name="ts.external.directory.path" value="C:\Users\Alex\WebstormProjects\training_project\node_modules\typescript\lib" />
     <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Alex\WebstormProjects\training_projetc\training_project\src\components\calculator" />
+    </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -51,7 +77,9 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1673879272583</updated>
-      <workItem from="1673879273830" duration="22553000" />
+      <workItem from="1673879273830" duration="27550000" />
+      <workItem from="1674139590118" duration="258000" />
+      <workItem from="1674139913542" duration="9356000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <created>1674039824699</created>
@@ -60,7 +88,14 @@
       <option name="project" value="LOCAL" />
       <updated>1674039824699</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="primary calculation bug fix">
+      <created>1674040528236</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1674040528236</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -76,16 +111,22 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="initial commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="initial commit" />
+    <MESSAGE value="primary calculation bug fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="primary calculation bug fix" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="345" y="540" key="Vcs.Push.Dialog.v2" timestamp="1674039833920">
+    <state x="481" y="646" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1674142980429">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="345" y="540" key="Vcs.Push.Dialog.v2/0.0.2560.1400@0.0.2560.1400" timestamp="1674039833920" />
+    <state x="481" y="646" key="#com.intellij.fileTypes.FileTypeChooser/0.0.2560.1400@0.0.2560.1400" timestamp="1674142980429" />
+    <state x="345" y="540" key="Vcs.Push.Dialog.v2" timestamp="1674040529305">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="345" y="540" key="Vcs.Push.Dialog.v2/0.0.2560.1400@0.0.2560.1400" timestamp="1674040529305" />
     <state x="450" y="409" key="run.anything.popup" timestamp="1673959387579">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>

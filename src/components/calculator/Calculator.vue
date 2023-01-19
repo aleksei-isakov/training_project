@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <div class="calculator-wrapper">
   <h1>Calc</h1>
     <div class="calc-body">
       <div class="calc-field" v-if="!displayCurrentNumber && result && !currentAction">
@@ -24,7 +24,7 @@
         <div class="calc-buttons__nums">
           <div class="top-row">
             <button
-                :class="[num == 0 ? 'buttons zero-button' : 'buttons']"
+                :class="[num === '0' ? 'buttons zero-button' : 'buttons']"
                 v-for="num of numbers"
                 @click="buttonSelect(num)"
             >
@@ -98,7 +98,7 @@ function fnButtonClick(fn): void  {
   }
 }
 
-function calculate(action):void {
+function calculate(action): void {
   if (currentField && previousField.value) {
     result.value = eval(`${previousField.value} ${action} ${currentField.join('')}`);
     previousField.value = '';
@@ -117,15 +117,14 @@ function calculate(action):void {
 
 
 <style scoped lang="scss">
-.wrapper {
-  width: 100vw;
-  height: 100vh;
+.calculator-wrapper {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   gap: 30px;
+  padding: 50px;
 }
+
 .calc-body {
   width: 400px;
   height: 600px;
@@ -135,6 +134,7 @@ function calculate(action):void {
   padding: 20px 10px;
   gap: 15px;
 }
+
 .calc-field {
   height: 200px;
   width: 100%;
@@ -143,6 +143,8 @@ function calculate(action):void {
   display: flex;
   flex-direction: column;
   gap: 5px;
+  border-radius: 5px;
+
   &__current {
     height: 20px;
     font-size: 20px;
@@ -168,38 +170,47 @@ function calculate(action):void {
     padding: 5px 0 0 10px;
   }
 }
+
 .calc-buttons {
   display: grid;
   grid-template-areas: "func-buttons ."
                         "num-buttons operate-buttons";
   grid-gap: 15px;
   grid-template-columns: 2fr 1fr;
+
+  &__functionals {
+      grid-area: func-buttons;
+      height: 100px;
+      width: 100%;
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+  }
 }
-.calc-buttons__functionals {
-  grid-area: func-buttons;
-  height: 100px;
-  width: 100%;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-}
+
 .buttons {
   height: 55px;
   width: 55px;
   background-color: white;
+  font-size: 15px;
+  font-weight: 800;
   border: 1px solid darkcyan;
+  font-family: "Comic Sans MS",sans-serif;
   border-radius: 50%;
 }
+
 .zero-button {
   width: 130px;
   border-radius: 10px;
 }
+
 .calc-buttons__nums {
   grid-area: num-buttons;
   height: 300px;
   display: flex;
   flex-direction: column;
 }
+
 .top-row {
   display: flex;
   flex-wrap: wrap;
@@ -208,10 +219,12 @@ function calculate(action):void {
   justify-content: center;
   align-items: center;
 }
+
 .bottom-row {
   display: flex;
   justify-content: space-evenly;
 }
+
 .calc-buttons__operators {
   grid-area: operate-buttons;
   display: flex;
