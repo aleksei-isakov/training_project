@@ -3,7 +3,15 @@
     <div class="weather-container">
       <h1>Weather App</h1>
       <div class="weather-info">
-        <div class="weather-item location-selector">2</div>
+        <div class="weather-item location-selector">
+          <label>
+            <input @input="getCity()" v-model="search">
+          </label>
+          <ul>
+            <li v-for="city in foundCities" @click="selectCity(city)">{{city.name}} {{city
+                .country}}</li>
+          </ul>
+        </div>
         <div class="weather-item main-weather">5</div>
         <div class="weather-item temperature">2</div>
         <div class="weather-item humidity">5</div>
@@ -11,30 +19,37 @@
         <div class="weather-item clouds">5</div>
       </div>
     </div>
-    <form action="submit">
-      <input type="text" v-model="search">
-    </form>
-    <button @click="getWeather">api call</button>
+
   </div>
 </template>
 
 <script setup lang="ts">
 import axios from "axios";
-import { ref } from 'vue'
+import { ref, onMounted, reactive } from 'vue'
 
 let search = ref('')
+let foundCities = reactive([])
+let currentCity = reactive([])
 
+function selectCity(city) {
+  currentCity = city
+  foundCities = []
+}
 
-async function getWeather() {
+async function getCity() {
   let key = '08e6a6a1566274461f6738badb1537fc'
-  let searchquery = search.value
-  let city = await
-      axios.get(`http://api.openweathermap.org/geo/1.0/direct?q=${searchquery}&limit=5&appid=08e6a6a1566274461f6738badb1537fc`)
-  let lat = city.data[0].lat
-  let lon = city.data[0].lon
-  let response = await
-      axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${key}`)
-  console.log(response.data)
+  if (search.value) {
+    let searchResults =
+    await axios.get
+    (`http://api.openweathermap.org/geo/1.0/direct?q=${search.value}&limit=5&appid=${key}`)
+    foundCities = searchResults.data
+  }
+  else
+    foundCities = []
+  // let lat = city.data[0].lat
+  // let lon = city.data[0].lon
+  // let response = await
+  //     axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${key}`)
 }
 </script>
 
