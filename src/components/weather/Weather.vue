@@ -16,6 +16,7 @@
             <p>{{weather.data.baseStation}}</p>
           </div>
           <label class="location-search">
+            <p>Search city</p>
             <input @input="SearchCity" v-model="search">
           </label>
           <ul >
@@ -164,7 +165,9 @@ onMounted(() => {
   color: white;
   z-index: 5;
 }
-
+.location-search {
+  color: white;
+}
 .main-weather {
   font-size: 27px;
   background-size: 100%;
@@ -186,5 +189,8 @@ onMounted(() => {
 }
 .weather-header {
   padding-left: 10px;
+}
+.location-selector {
+  color: white;
 }
 </style>
