@@ -14,6 +14,8 @@ dist-ssr
 
 # Editor directories and files
 .vscode/*
+.idea/*
+C:\Users\Alex\WebstormProjects\training_project\.idea\*
 !.vscode/extensions.json
 .idea
 .DS_Store
