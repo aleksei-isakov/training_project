@@ -1,30 +1,44 @@
 <template>
   <div class="weather-wrapper">
-    <div class="weather-container">
-      <h1>Weather App</h1>
-      <div class="weather-info">
-        <div class="weather-item location-selector">
-          <label>
+    <div class="weather-container" >
+      <img :src="weatherBackground" alt="" class="dynamic-background">
+
+      <div class="weather-header">
+        <h1>Weather App</h1>
+      </div>
+
+      <div class="main-weather" >
+
+        <div class="location">
+          <div class="location-info">
+            <p>{{weather.data.city}}</p>
+            <p>{{weather.data.country}}</p>
+            <p>{{weather.data.baseStation}}</p>
+          </div>
+          <label class="location-search">
             <input @input="SearchCity" v-model="search">
           </label>
-          <ul>
-            <li v-for="city in foundCities" @click="selectCity(city)">{{city.name}} {{city
-                .country}}</li>
+          <ul >
+            <li class="location-selector"
+                v-for="city in foundCities"
+                @click="selectCity(city)">
+              {{city.name}} {{city.country}}
+            </li>
           </ul>
         </div>
-        <div class="weather-item main-weather">
+        <div class="weather-type-title">
+          <p>{{weather.data.weather}}</p>
+        </div>
+        <div class="weather-info">
           <p>{{weather.data.temperature}}</p>
           <p>{{weather.data.feels_like}}</p>
           <p>{{weather.data.pressure}}</p>
           <p>{{weather.data.humidity}}</p>
         </div>
-        <div class="weather-item temperature">2</div>
-        <div class="weather-item humidity">5</div>
-        <div class="weather-item wind">5</div>
-        <div class="weather-item clouds">5</div>
-      </div>
-    </div>
 
+      </div>
+
+    </div>
   </div>
 </template>
 
@@ -38,13 +52,16 @@ let foundCities = reactive([])
 
 let currentCityCoordinates = reactive({
   lat: '',
-  lon: ''
+  lon: '',
+  name: '',
+  country: ''
 })
-
+let path = ref('')
 let currentCityWeather = reactive({
   main: {},
   weather: {},
-  wind: {}
+  wind: {},
+  base: {}
 })
 
 let weather = reactive( {
@@ -56,12 +73,15 @@ let weather = reactive( {
         humidity: `Humidity: ${currentCityWeather.main.humidity} %`,
         pressure: `Pressure: ${currentCityWeather.main.pressure} hPa`,
         wind: `Wind speed ${currentCityWeather.wind.speed} m/s`,
+        baseStation: currentCityWeather.base,
+        city: currentCityCoordinates.name,
+        country: currentCityCoordinates.country,
         weather: currentCityWeather.weather.main,
         weather_icon: currentCityWeather.weather.icon
       }
     },
     set() {
-    }
+    },
   })
 })
 
@@ -72,11 +92,14 @@ watch( currentCityCoordinates, async () => {
   currentCityWeather.main = responseData.data.main;
   currentCityWeather.weather = responseData.data.weather[0];
   currentCityWeather.wind = responseData.data.wind
+  currentCityWeather.base = responseData.data.name
 })
 
 function selectCity(city) {
   currentCityCoordinates.lat = city.lat
   currentCityCoordinates.lon = city.lon
+  currentCityCoordinates.name = city.name
+  currentCityCoordinates.country = city.state
   foundCities = []
 }
 
@@ -87,19 +110,30 @@ async function SearchCity() {
     (`http://api.openweathermap.org/geo/1.0/direct?q=${search.value}&limit=5&appid=${key}`)
     foundCities = searchResults.data
   }
-
 }
-onMounted(() => {
-  selectCity({lat: '59.9387', lon: '30.3162'})
+
+let weatherBackground = computed(() => {
+  switch (weather.data.weather) {
+    case 'Mist': return "src/assets/weather/mist.gif";
+    case 'Clear': return "src/assets/weather/clear.gif";
+    case 'Clouds': return "src/assets/weather/clouds.gif";
+    case 'Rain': return "src/assets/weather/rain.gif";
+    case 'Snow': return "src/assets/weather/snow.gif";
+  }
 })
+
+onMounted(() => {
+  selectCity({lat: '59.9387', lon: '30.3162', name: 'Saint-Petersburg', state: 'Russia'})
+})
+
 </script>
 
 <style scoped lang="scss">
+
 .weather-wrapper {
   display: flex;
   justify-content: center;
   padding: 50px;
-  background-color: yellow;
   min-height: 810px;
 }
 .weather-container {
@@ -107,16 +141,50 @@ onMounted(() => {
   width: 1280px;
   display: flex;
   flex-direction: column;
-  background-color: crimson;
-  justify-content: space-between;
+  background-size: 100%;
+  position: relative;
+  z-index: 5;
 }
-.weather-info {
+.weather-type-title {
+  color: white;
+  height: 40px;
+  width: 150px;
+  text-align: center;
+  backdrop-filter: blur(10px);
+}
+.dynamic-background {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  z-index: 1;
+}
+.weather-header {
   display: flex;
+  justify-content: space-between;
+  color: white;
+  z-index: 5;
 }
-.weather-item {
-  flex-basis: 100%;
-  height: 200px;
 
-  background-color: aquamarine;
+.main-weather {
+  font-size: 27px;
+  background-size: 100%;
+  display: flex;
+  justify-content: space-between;
+  height: 100%;
+  padding: 40px 10px;
+  z-index: 5;
+}
+.weather-info, .location-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 30px;
+  height: 250px;
+  width: 250px;
+  backdrop-filter: blur(10px);
+  color: white;
+}
+.weather-header {
+  padding-left: 10px;
 }
 </style>
