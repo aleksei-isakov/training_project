@@ -1,7 +1,8 @@
 import { createRouter, createWebHashHistory } from "vue-router";
-import Calculator from '/src/components/calculator/Calculator.vue'
-import Home from '/src/components/home/Home.vue'
-import Weather from '/src/components/weather/Weather.vue'
+import Calculator from '/src/views/calculator/Calculator.vue'
+import Home from '/src/views/home/Home.vue'
+import Weather from '/src/views/weather/Weather.vue'
+import Movies from '/src/views/movies/Movies.vue'
 
 export default createRouter({
     history: createWebHashHistory(),
@@ -19,6 +20,10 @@ export default createRouter({
         {
             path: '/weather',
             component: Weather
+        },
+        {
+            path: '/movies',
+            component: Movies
         }
     ]
 })

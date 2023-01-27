@@ -17,7 +17,11 @@
           </div>
           <label class="location-search">
             <p>Search city</p>
-            <input @input="SearchCity" v-model="search">
+            <input
+                @input="searchCity"
+                v-model="search"
+                placeholder="Search cities..."
+            >
           </label>
           <ul >
             <li class="location-selector"
@@ -32,7 +36,7 @@
         </div>
         <div class="weather-info">
           <p>{{weather.data.temperature}}</p>
-          <p>{{weather.data.feels_like}}</p>
+          <p>{{weather.data.feelsLike}}</p>
           <p>{{weather.data.pressure}}</p>
           <p>{{weather.data.humidity}}</p>
         </div>
@@ -45,19 +49,19 @@
 
 <script setup lang="ts">
 import axios from "axios";
-import { ref, reactive, watch, computed, onMounted } from 'vue'
+import { ref, reactive, watch, computed, onMounted, nextTick } from 'vue'
 
 const key = '08e6a6a1566274461f6738badb1537fc'
 let search = ref('')
-let foundCities = reactive([])
+let foundCities = ref([])
 
 let currentCityCoordinates = reactive({
-  lat: '',
-  lon: '',
-  name: '',
-  country: ''
+        lat: '',
+        lon: '',
+        name: '',
+        country: ''
 })
-let path = ref('')
+
 let currentCityWeather = reactive({
   main: {},
   weather: {},
@@ -69,8 +73,8 @@ let weather = reactive( {
   data: computed( {
     get() {
       return {
-        temperature: `Temperature: ${(currentCityWeather.main.temp - 273.15).toFixed(1)} °C`,
-        feels_like: `Feels like ${(currentCityWeather.main.feels_like - 273.15).toFixed(1)} °C`,
+        temperature: `Temperature: ${(currentCityWeather.main.temp - 273.15).toFixed(0)} °C`,
+        feelsLike: `Feels like ${(currentCityWeather.main.feels_like - 273.15).toFixed(0)} °C`,
         humidity: `Humidity: ${currentCityWeather.main.humidity} %`,
         pressure: `Pressure: ${currentCityWeather.main.pressure} hPa`,
         wind: `Wind speed ${currentCityWeather.wind.speed} m/s`,
@@ -78,7 +82,7 @@ let weather = reactive( {
         city: currentCityCoordinates.name,
         country: currentCityCoordinates.country,
         weather: currentCityWeather.weather.main,
-        weather_icon: currentCityWeather.weather.icon
+        weatherIcon: currentCityWeather.weather.icon
       }
     },
     set() {
@@ -101,15 +105,15 @@ function selectCity(city) {
   currentCityCoordinates.lon = city.lon
   currentCityCoordinates.name = city.name
   currentCityCoordinates.country = city.state
-  foundCities = []
+  foundCities.value = []
 }
 
-async function SearchCity() {
+async function searchCity() {
   if (search.value) {
-    let searchResults =
     await axios.get
     (`http://api.openweathermap.org/geo/1.0/direct?q=${search.value}&limit=5&appid=${key}`)
-    foundCities = searchResults.data
+    .then(results => foundCities.value = results.data)
+    .catch(error => console.log(error.message))
   }
 }
 

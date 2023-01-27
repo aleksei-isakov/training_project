@@ -5,7 +5,6 @@
 </template>
 
 <script setup lang="ts">
-import Calculator from './components/calculator/Calculator.vue'
 import Header from './components/header/Header.vue'
 import Footer from './components/footer/Footer.vue'
 </script>

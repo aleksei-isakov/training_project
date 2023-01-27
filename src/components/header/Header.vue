@@ -6,7 +6,7 @@
       <li><a href="#/calc">Calc</a></li>
       <li>Radio</li>
       <li><a href="#/weather">Weather</a></li>
-      <li>YouTube</li>
+      <li><a href="#/movies">Movies</a></li>
     </nav>
 
   </div>

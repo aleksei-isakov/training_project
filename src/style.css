@@ -13,7 +13,7 @@ li, a{
   list-style-type: none;
   text-decoration: none;
 }
-li:hover {
+a,li:hover {
   cursor: pointer;
 }
 .site-container {
