@@ -10,6 +10,7 @@ export const useMovieSearchStore = defineStore('MovieSearchStore', () => {
     const loader = ref(false)
     let search = ref('')
     let foundMovies = ref({})
+    let viewMode = ref(0)
 
 
     const searchMovies = async() => {
@@ -24,6 +25,7 @@ export const useMovieSearchStore = defineStore('MovieSearchStore', () => {
         search,
         foundMovies,
         searchMovies,
+        viewMode
     }
 
 })

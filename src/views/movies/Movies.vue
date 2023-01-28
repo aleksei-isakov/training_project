@@ -10,11 +10,14 @@
           <input class="searchbar" type="text" v-model="SearchStore.search">
         </form>
       </div>
+      <h1 v-if="SearchStore.viewMode === 0">HELLO</h1>
+
       <div class="all-movies-container">
-        <div class="movie-searchbar"></div>
-        <MovieCard v-for="movie of SearchStore.foundMovies" :key="movie.id" :movie="movie"/>
+        <MovieCard v-for="movie of SearchStore.foundMovies"
+                   :key="movie.id"
+                   :movie="movie"/>
       </div>
-<!--      <div class="favourites-container">-->
+<!--      <div v-else class="favourites-container">-->
 <!--        <MovieCard/>-->
 <!--      </div>-->
 
@@ -31,6 +34,7 @@ const SearchStore = useMovieSearchStore()
 
 onMounted(() => {
   SearchStore.searchMovies()
+  console.log(SearchStore.viewMode)
 })
 
 </script>
