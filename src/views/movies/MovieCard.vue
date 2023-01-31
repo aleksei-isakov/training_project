@@ -42,7 +42,10 @@ const props = defineProps({
 })
 
 const releaseDate = computed(() => {
-  return `(${props.movie.release_date.substring(0,4)})`
+  if (props.movie.release_date) {
+    return `(${props.movie.release_date.substring(0,4)})`
+  }
+
 })
 </script>
 
@@ -53,7 +56,7 @@ const releaseDate = computed(() => {
   display: flex;
   border: 1px solid red;
   height: 310px;
-  width: 650px;
+  width: 450px;
   padding: 10px;
   overflow: hidden;
 }

@@ -22,19 +22,20 @@
 <!--      </div>-->
 
     </div>
+    <Pagination :pagination="SearchStore.pagination" />
   </div>
 </template>
 
 <script setup lang="ts">
 import MovieCard from "./MovieCard.vue";
-import { useMovieSearchStore } from "../../store/movieStore/SearchStore";
+import Pagination from '../../components/Pagination.vue'
 import { onMounted } from 'vue'
+import { useMovieSearchStore } from "../../store/movieStore/SearchStore";
 
 const SearchStore = useMovieSearchStore()
 
 onMounted(() => {
   SearchStore.searchMovies()
-  console.log(SearchStore.viewMode)
 })
 
 </script>
@@ -42,8 +43,10 @@ onMounted(() => {
 <style scoped lang="scss">
 .movie-wrapper {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   padding: 50px;
+  gap: 30px;
+  align-items: center;
   min-height: 810px;
   background-color: darkcyan;
 }
@@ -55,7 +58,7 @@ onMounted(() => {
 }
 .all-movies-container {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   gap: 20px;
 }
 .movie-header {
