@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
-import { useMovieStore } from "./MovieStore";
 import { ref, reactive } from 'vue'
 import axios from "axios";
+
 
 const url =
     "https:api.themoviedb.org/3/search/movie?api_key=ea19af65e4e556fe68084f33022c5e51&query=";
@@ -12,6 +12,7 @@ export const useMovieSearchStore = defineStore('MovieSearchStore', () => {
     let foundMovies = ref({})
     let viewMode = ref(0)
     let pagination = reactive({
+        maxPagesCount: 10,
         totalPages: 0,
         currentPage: 1
     })
@@ -22,12 +23,12 @@ export const useMovieSearchStore = defineStore('MovieSearchStore', () => {
         foundMovies.value = response.data.results
         pagination.totalPages = response.data.total_pages
         pagination.currentPage = response.data.page
-        console.log(response.data,pagination, 'это запрос')
         loader.value = false
+        console.log(viewMode)
     };
 
-    const onClickSetPaginationPage = async(page) => {
-        if (pagination.totalPages >= 1) {
+    const onClickSetPaginationPage = async(page: number) => {
+        if (page !== pagination.currentPage) {
             loader.value = true
             let response = await axios.get(`${url}${search.value}&page=${page}`)
             pagination.currentPage = page
@@ -35,21 +36,22 @@ export const useMovieSearchStore = defineStore('MovieSearchStore', () => {
             loader.value = false
         }
     }
-    const onClickListPages = async(action) => {
-        if (action === 'prev') {
-            loader.value = true
-            let response = await axios.get(`${url}${search.value}&page=${pagination.currentPage - 1}`)
-            pagination.currentPage -= 1
-            foundMovies.value = response.data.results
-            loader.value = false
+
+    const onClickListPages = async(action: string) => {
+        loader.value = true
+        switch (action) {
+            case 'prev': pagination.currentPage -= 1;
+            break;
+            case 'next': pagination.currentPage += 1;
+            break;
+            case 'first': pagination.currentPage = 1;
+            break;
+            case 'last': pagination.currentPage = pagination.totalPages;
+            break;
         }
-        if (action === 'next') {
-            loader.value = true
-            let response = await axios.get(`${url}${search.value}&page=${pagination.currentPage + 1}`)
-            pagination.currentPage += 1
-            foundMovies.value = response.data.results
-            loader.value = false
-        }
+        let response = await axios.get(`${url}${search.value}&page=${pagination.currentPage}`)
+        foundMovies.value = response.data.results
+        loader.value = false
     }
 
 

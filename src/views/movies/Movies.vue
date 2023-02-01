@@ -2,41 +2,58 @@
   <div class="movie-wrapper">
     <div class="movie-container">
       <div class="movie-header">
-        <a class="movie-navigation-button">List of movies</a>
-        <a class="movie-navigation-button">My favourites</a>
+        <a  @click="SearchStore.viewMode = 0"
+            :class="['movie-navigation-button', SearchStore.viewMode === 0 ? 'active-tab' : '']"
+        >
+          Search movies
+        </a>
+        <a  @click="SearchStore.viewMode = 1"
+            :class="['movie-navigation-button', SearchStore.viewMode === 1 ? 'active-tab' : '']"
+        >
+          My favourites
+        </a>
       </div>
-      <div class="search-bar">
+
+
+      <div v-if="SearchStore.viewMode === 0" class="search-bar">
         <form @submit.prevent="SearchStore.searchMovies">
           <input class="searchbar" type="text" v-model="SearchStore.search">
         </form>
       </div>
-      <h1 v-if="SearchStore.viewMode === 0">HELLO</h1>
 
-      <div class="all-movies-container">
-        <MovieCard v-for="movie of SearchStore.foundMovies"
+
+      <Loader v-if="SearchStore.loader"/>
+
+      <div v-else class="all-movies-container">
+        <MovieCard
+                    v-for="movie of SearchStore.foundMovies"
                    :key="movie.id"
-                   :movie="movie"/>
+                   :movie="movie"
+        />
       </div>
-<!--      <div v-else class="favourites-container">-->
-<!--        <MovieCard/>-->
-<!--      </div>-->
+
+      <div/>
+
 
     </div>
-    <Pagination :pagination="SearchStore.pagination" />
+
+    <Pagination
+        v-if="SearchStore.pagination.totalPages"
+        :pagination="SearchStore.pagination"
+    />
+
   </div>
+
 </template>
 
 <script setup lang="ts">
 import MovieCard from "./MovieCard.vue";
 import Pagination from '../../components/Pagination.vue'
+import Loader from '../../components/loader/Loader.vue'
 import { onMounted } from 'vue'
 import { useMovieSearchStore } from "../../store/movieStore/SearchStore";
 
 const SearchStore = useMovieSearchStore()
-
-onMounted(() => {
-  SearchStore.searchMovies()
-})
 
 </script>
 
@@ -50,6 +67,15 @@ onMounted(() => {
   min-height: 810px;
   background-color: darkcyan;
 }
+.active-tab {
+  display: flex;
+  flex-direction: column;
+  &::after {
+    content: "";
+    border: 2px solid black;
+  }
+}
+
 .movie-container {
   display: flex;
   flex-direction: column;
@@ -63,11 +89,11 @@ onMounted(() => {
 }
 .movie-header {
   display: flex;
+  font-size: 20px;
   justify-content: space-between;
   align-items: center;
   width: 300px;
   height: 50px;
-  background-color: crimson;
 }
 .searchbar {
   width: 300px;

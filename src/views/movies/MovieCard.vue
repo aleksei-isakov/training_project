@@ -59,6 +59,9 @@ const releaseDate = computed(() => {
   width: 450px;
   padding: 10px;
   overflow: hidden;
+  &:hover{
+    cursor: pointer;
+  }
 }
 .movie-poster {
   width: 310px;

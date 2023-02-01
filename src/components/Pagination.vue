@@ -1,26 +1,41 @@
 <template>
   <div class="pagination-wrapper">
     <button
-        class="pagination-button previous-page"
-        @click="SearchStore.onClickListPages('prev')"
-        :disabled="SearchStore.pagination.currentPage === 1"
+        class="pagination-button"
+        @click="SearchStore.onClickListPages('first')"
+        v-if="props.pagination.currentPage !== 1"
     >
       &laquo
     </button>
-
     <button
-        v-for="page of pagination.totalPages"
-        :key="page"
-        :class="['pagination-button', SearchStore.pagination.currentPage === page ? 'activePage'
-        : '']"
-        @click="SearchStore.onClickSetPaginationPage(page)"
-    >{{page}}
+        class="pagination-button"
+        @click="SearchStore.onClickListPages('prev')"
+        v-if="props.pagination.currentPage !== 1"
+    >
+      &lt
     </button>
 
     <button
-        class="pagination-button next-page"
+        v-for="page of pagination.maxPagesCount"
+        :key="page"
+        :class="['pagination-button', props.pagination.currentPage === page ? 'activePage'
+        : '']"
+        @click="SearchStore.onClickSetPaginationPage(page)"
+    >
+      {{page}}
+    </button>
+
+    <button
+        class="pagination-button"
         @click="SearchStore.onClickListPages('next')"
-        :disabled="SearchStore.pagination.currentPage === SearchStore.pagination.totalPages"
+        v-if="props.pagination.currentPage !== pagination.maxPagesCount"
+    >
+      &gt
+    </button>
+    <button
+        class="pagination-button"
+        @click="SearchStore.onClickListPages('last')"
+        v-if="props.pagination.currentPage !== pagination.maxPagesCount"
     >
       &raquo
     </button>
@@ -33,11 +48,10 @@ import { computed } from 'vue'
 import { useMovieSearchStore } from "../store/movieStore/SearchStore";
 
 const SearchStore = useMovieSearchStore()
-
-
 const pagesCount = computed(() => {
 
 })
+
 const props = defineProps({
   pagination: {
     type: Object,
@@ -48,6 +62,10 @@ const props = defineProps({
 </script>
 
 <style scoped lang="scss">
+.pagination {
+  display: flex;
+  gap: 15px;
+}
 .pagination-wrapper {
   width: 70%;
   justify-content: center;
