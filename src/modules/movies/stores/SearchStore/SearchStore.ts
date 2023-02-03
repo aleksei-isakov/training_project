@@ -2,7 +2,6 @@ import { defineStore } from "pinia";
 import { ref, reactive } from 'vue'
 import axios from "axios";
 
-
 const url =
     "https:api.themoviedb.org/3/search/movie?api_key=ea19af65e4e556fe68084f33022c5e51&query=";
 
@@ -10,6 +9,7 @@ export const useMovieSearchStore = defineStore('MovieSearchStore', () => {
     const loader = ref(false)
     let search = ref('')
     let foundMovies = ref({})
+    const isServerError = ref(false)
     let viewMode = ref(0)
     let pagination = reactive({
         maxPagesCount: 10,
@@ -19,12 +19,14 @@ export const useMovieSearchStore = defineStore('MovieSearchStore', () => {
 
     const searchMovies = async() => {
         loader.value = true
-        let response = await axios.get(`${url}${search.value}`)
+        let response = await axios.get(`${url}${search.value}`).catch(error => {
+            isServerError.value = true
+            loader.value = false
+        })
         foundMovies.value = response.data.results
         pagination.totalPages = response.data.total_pages
         pagination.currentPage = response.data.page
         loader.value = false
-        console.log(viewMode)
     };
 
     const onClickSetPaginationPage = async(page: number) => {
@@ -63,7 +65,8 @@ export const useMovieSearchStore = defineStore('MovieSearchStore', () => {
         onClickSetPaginationPage,
         onClickListPages,
         viewMode,
-        pagination
+        pagination,
+        isServerError
     }
 
 })

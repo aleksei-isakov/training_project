@@ -5,8 +5,8 @@
 </template>
 
 <script setup lang="ts">
-import Header from './components/header/Header.vue'
-import Footer from './components/footer/Footer.vue'
+import Header from './modules/header/Header.vue'
+import Footer from './modules/footer/Footer.vue'
 </script>
 
 <style scoped lang="scss">

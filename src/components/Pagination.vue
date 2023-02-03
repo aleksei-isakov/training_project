@@ -28,14 +28,14 @@
     <button
         class="pagination-button"
         @click="SearchStore.onClickListPages('next')"
-        v-if="props.pagination.currentPage !== pagination.maxPagesCount"
+        v-if="props.pagination.currentPage !== (pagination.maxPagesCount && pagination.totalPages)"
     >
       &gt
     </button>
     <button
         class="pagination-button"
         @click="SearchStore.onClickListPages('last')"
-        v-if="props.pagination.currentPage !== pagination.maxPagesCount"
+        v-if="props.pagination.currentPage !== (pagination.maxPagesCount && pagination.totalPages)"
     >
       &raquo
     </button>
@@ -45,7 +45,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import { useMovieSearchStore } from "../store/movieStore/SearchStore";
+import { useMovieSearchStore } from "../modules/movies/stores/SearchStore/SearchStore";
 
 const SearchStore = useMovieSearchStore()
 const pagesCount = computed(() => {

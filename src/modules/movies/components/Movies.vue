@@ -21,7 +21,11 @@
         </form>
       </div>
 
+      <div v-if="SearchStore.isServerError">
+        An error occurred fetching data. Please try again later or use VPN
+      </div>
 
+      <div v-else>
       <Loader v-if="SearchStore.loader"/>
 
       <div v-else class="all-movies-container">
@@ -41,17 +45,17 @@
         v-if="SearchStore.pagination.totalPages"
         :pagination="SearchStore.pagination"
     />
+    </div>
 
   </div>
-
 </template>
 
 <script setup lang="ts">
 import MovieCard from "./MovieCard.vue";
-import Pagination from '../../components/Pagination.vue'
-import Loader from '../../components/loader/Loader.vue'
+import Pagination from '../../../components/Pagination.vue'
+import Loader from '../../../ui/Loader.vue'
 import { onMounted } from 'vue'
-import { useMovieSearchStore } from "../../store/movieStore/SearchStore";
+import { useMovieSearchStore } from "../stores/SearchStore/SearchStore";
 
 const SearchStore = useMovieSearchStore()
 

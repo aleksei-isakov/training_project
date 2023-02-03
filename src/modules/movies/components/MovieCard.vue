@@ -28,7 +28,7 @@
 
 <script setup lang="ts">
 import axios from "axios";
-import { useMovieSearchStore } from "../../store/movieStore/SearchStore";
+import { useMovieSearchStore } from "../stores/SearchStore/SearchStore";
 import { computed } from 'vue'
 const SearchStore = useMovieSearchStore()
 
