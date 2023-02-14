@@ -18,20 +18,17 @@
       </div>
 
       <div class="movie-favourite-button-container">
-<!--        <button-->
-<!--            v-if="isFavourite && SearchStore.viewMode === 0"-->
-<!--            disabled-->
-<!--            class="movie-favourite-button">In favourites-->
-<!--        </button>-->
         <button
             v-if="!movie.isFavourite"
             @click="FavouritesStore.onClickAddToFavourites(movie)"
             class="movie-favourite-button">To watchlist
         </button>
         <button
-            v-else
+            v-if="movie.isFavourite"
             @click="FavouritesStore.onClickRemoveFromFavourites(movie)"
-            class="movie-favourite-button">Remove
+            :disabled="SearchStore.viewMode === 0"
+            class="movie-favourite-button">
+          {{SearchStore.viewMode === 0 ? 'In list' : "Remove"}}
         </button>
       </div>
     </div>
@@ -73,11 +70,6 @@ const rating = computed(() => {
   }
 })
 
-const isFavourite = computed(() => {
-    if (props.favourites.indexOf(props.movie.id) > 0)
-      return true
-
-})
 
 </script>
 
