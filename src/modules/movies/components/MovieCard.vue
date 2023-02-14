@@ -10,7 +10,7 @@
     <div class="movie-data">
 
       <div class="movie-title-container">
-        <h2>{{movie.title}} {{releaseDate}} {{movie.vote_average}}</h2>
+        <h2>{{movie.title}} {{releaseDate}} {{rating}}</h2>
       </div>
 
       <div class="movie-description-container">
@@ -18,7 +18,21 @@
       </div>
 
       <div class="movie-favourite-button-container">
-        <button class="movie-favourite-button">BUTTON</button>
+<!--        <button-->
+<!--            v-if="isFavourite && SearchStore.viewMode === 0"-->
+<!--            disabled-->
+<!--            class="movie-favourite-button">In favourites-->
+<!--        </button>-->
+        <button
+            v-if="!movie.isFavourite"
+            @click="FavouritesStore.onClickAddToFavourites(movie)"
+            class="movie-favourite-button">To watchlist
+        </button>
+        <button
+            v-else
+            @click="FavouritesStore.onClickRemoveFromFavourites(movie)"
+            class="movie-favourite-button">Remove
+        </button>
       </div>
     </div>
 
@@ -27,17 +41,23 @@
 </template>
 
 <script setup lang="ts">
-import axios from "axios";
+import { useFavouritesStore } from "../stores/FavouritesStore/FavouritesStore";
 import { useMovieSearchStore } from "../stores/SearchStore/SearchStore";
 import { computed } from 'vue'
-const SearchStore = useMovieSearchStore()
 
+const FavouritesStore = useFavouritesStore()
+const SearchStore = useMovieSearchStore()
 
 const props = defineProps({
   movie: {
     type: Object,
     required: false,
     default: () => {}
+  },
+  favourites: {
+    type: Array,
+    required: false,
+    default: () => []
   }
 })
 
@@ -45,12 +65,23 @@ const releaseDate = computed(() => {
   if (props.movie.release_date) {
     return `(${props.movie.release_date.substring(0,4)})`
   }
+})
+
+const rating = computed(() => {
+  if (props.movie.vote_average) {
+    return props.movie.vote_average.toFixed(1)
+  }
+})
+
+const isFavourite = computed(() => {
+    if (props.favourites.indexOf(props.movie.id) > 0)
+      return true
 
 })
+
 </script>
 
 <style scoped lang="scss">
-
 
 .movie-card-wrapper {
   display: flex;

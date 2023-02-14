@@ -12,19 +12,21 @@ export const useMovieSearchStore = defineStore('MovieSearchStore', () => {
     const isServerError = ref(false)
     let viewMode = ref(0)
     let pagination = reactive({
-        maxPagesCount: 10,
+        maxPagesCount: null,
         totalPages: 0,
         currentPage: 1
     })
 
     const searchMovies = async() => {
         loader.value = true
-        let response = await axios.get(`${url}${search.value}`).catch(error => {
+        let response = await axios.get(`${url}${search.value}`)
+            .catch(error => {
             isServerError.value = true
             loader.value = false
         })
         foundMovies.value = response.data.results
         pagination.totalPages = response.data.total_pages
+        pagination.maxPagesCount = response.data.total_pages < 10 ? response.data.total_pages : 10
         pagination.currentPage = response.data.page
         loader.value = false
     };

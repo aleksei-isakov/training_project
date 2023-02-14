@@ -1,6 +1,7 @@
 <template>
   <div class="movie-wrapper">
     <div class="movie-container">
+
       <div class="movie-header">
         <a  @click="SearchStore.viewMode = 0"
             :class="['movie-navigation-button', SearchStore.viewMode === 0 ? 'active-tab' : '']"
@@ -14,47 +15,23 @@
         </a>
       </div>
 
+      <template v-if="SearchStore.viewMode === 0" >
+        <Search/>
+      </template>
 
-      <div v-if="SearchStore.viewMode === 0" class="search-bar">
-        <form @submit.prevent="SearchStore.searchMovies">
-          <input class="searchbar" type="text" v-model="SearchStore.search">
-        </form>
-      </div>
-
-      <div v-if="SearchStore.isServerError">
-        An error occurred fetching data. Please try again later or use VPN
-      </div>
-
-      <div v-else>
-      <Loader v-if="SearchStore.loader"/>
-
-      <div v-else class="all-movies-container">
-        <MovieCard
-                    v-for="movie of SearchStore.foundMovies"
-                   :key="movie.id"
-                   :movie="movie"
-        />
-      </div>
-
-      <div/>
-
+      <template v-else>
+        <Favourites/>
+      </template>
 
     </div>
-
-    <Pagination
-        v-if="SearchStore.pagination.totalPages"
-        :pagination="SearchStore.pagination"
-    />
-    </div>
-
   </div>
+
 </template>
 
 <script setup lang="ts">
-import MovieCard from "./MovieCard.vue";
-import Pagination from '../../../components/Pagination.vue'
-import Loader from '../../../ui/Loader.vue'
-import { onMounted } from 'vue'
+import Search from '../components/Search.vue'
+import Favourites from '../components/Favourites.vue'
+
 import { useMovieSearchStore } from "../stores/SearchStore/SearchStore";
 
 const SearchStore = useMovieSearchStore()
@@ -86,11 +63,7 @@ const SearchStore = useMovieSearchStore()
   align-items: center;
   gap: 25px;
 }
-.all-movies-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-}
+
 .movie-header {
   display: flex;
   font-size: 20px;
@@ -99,11 +72,5 @@ const SearchStore = useMovieSearchStore()
   width: 300px;
   height: 50px;
 }
-.searchbar {
-  width: 300px;
-  height: 40px;
-  border-radius: 15px;
-  font-size: 25px;
-  padding: 0 7px;
-}
+
 </style>
