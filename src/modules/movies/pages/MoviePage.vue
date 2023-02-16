@@ -3,7 +3,7 @@
     <div class="movie-container">
 
       <div class="movie-header">
-        <a  @click="SearchStore.viewMode = 0"
+        <a  @click="onClickSearchMode"
             :class="['movie-navigation-button', SearchStore.viewMode === 0 ? 'active-tab' : '']"
         >
           Search movies
@@ -31,10 +31,27 @@
 <script setup lang="ts">
 import Search from '../components/Search.vue'
 import Favourites from '../components/Favourites.vue'
+import { watch } from 'vue'
 
 import { useMovieSearchStore } from "../stores/SearchStore/SearchStore";
 
 const SearchStore = useMovieSearchStore()
+
+const onClickSearchMode = () => {
+    SearchStore.viewMode = 0
+    const favouriteMovies = JSON.parse(localStorage.getItem("favourites"))
+    if (SearchStore.foundMovies) {
+
+      SearchStore.foundMovies.forEach(el => {
+        for (let i = 0; favouriteMovies.length > i; i++) {
+          if (el.id === favouriteMovies[i].id) {
+            el.isFavourite = true
+            console.log(el.id, favouriteMovies[i].id, el.isFavourite)
+          }
+        }
+      })
+    }
+}
 
 </script>
 

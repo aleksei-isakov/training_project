@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { ref, reactive } from 'vue'
+import { ref, reactive, watch } from 'vue'
 import axios from "axios";
 
 const url =
@@ -8,7 +8,7 @@ const url =
 export const useMovieSearchStore = defineStore('MovieSearchStore', () => {
     const loader = ref(false)
     let search = ref('')
-    let foundMovies = ref({})
+    let foundMovies = ref([])
     const isServerError = ref(false)
     let viewMode = ref(0)
     let pagination = reactive({
@@ -58,6 +58,23 @@ export const useMovieSearchStore = defineStore('MovieSearchStore', () => {
         loader.value = false
     }
 
+    watch(foundMovies, () => {
+        const favouriteMovies = JSON.parse(localStorage.getItem("favourites"))
+        if (favouriteMovies) {
+
+            foundMovies.value.forEach(el => {
+                for (let i = 0; favouriteMovies.length > i; i++) {
+                    if (el.id === favouriteMovies[i].id) {
+                        el.isFavourite = true
+                    }
+                }
+            })
+        }
+        else {
+            foundMovies.value = response.data.results
+
+        }
+    }, {deep: true})
 
     return {
         loader,
